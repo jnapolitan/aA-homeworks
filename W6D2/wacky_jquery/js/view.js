@@ -22,28 +22,33 @@ View.prototype.exercise1 = function () {
   //Challenge: Give every square the class 'orange'
   //Result: Every square should turn orange (we already have a CSS rule)
 
-  //your code here!
+  $('li.square').addClass("orange");
 };
 
 View.prototype.exercise2 = function () {
   //Challenge: Remove every square
   //Result: Every square vanishes
 
-  //your code here!
+  $('li.square').remove();
 };
 
 View.prototype.exercise3 = function () {
   //Challenge: Add an <h1> with the text 'i love jquery' under the grid.
   //Result: An <h1> with the text 'i love jquery' appears under the grid.
 
-  //your code here!
+  $('#easel').after('<h1>i love jquery</h1>');
 };
 
 View.prototype.exercise4 = function () {
   //Challenge: Write your first name in every other square.
   //Result: Your name appears in every other square.
 
-  //your code here!
+  const squares = $('li.square');
+  for (let i = 0; i < squares.length; i++) {
+    if (i % 2 != 0) {
+      $(squares[i]).text("Julian");
+    }
+  }
 };
 
 View.prototype.exercise5 = function () {
@@ -54,7 +59,10 @@ View.prototype.exercise5 = function () {
   //hint: checkout the addRow function at the bottom of the file: we set the
   //  'data-pos' of every square
 
-  //your code here!
+  $('.square').on("click", event => {
+    const $sq = $(event.currentTarget);
+    alert($sq.attr("data-pos"));
+  })
 };
 
 View.prototype.exercise6 = function () {
@@ -64,7 +72,10 @@ View.prototype.exercise6 = function () {
 
   //hint: use window._randomColorString() (defined at top) to get a random color!
 
-  //your code here!
+  $('.square').each((_, el) => {
+    const $sq = $(el);
+    $sq.css("background-color", _randomColorString());
+  });
 };
 
 View.prototype.exercise7 = function(){
@@ -74,7 +85,10 @@ View.prototype.exercise7 = function(){
   //You should push the button for exercise 6 first to try it on the
   //rainbow.
 
-  //your code here!
+  $('#easel').on("mouseenter", ".square", event => {
+    const $sq = $(event.currentTarget);
+    console.log($sq.css("background-color"));
+  })
 };
 
 
