@@ -7,18 +7,32 @@ import Root from './components/root';
 document.addEventListener('DOMContentLoaded', () => {
   const preloadedState = localStorage.state ?
     JSON.parse(localStorage.state) : {};
-  const store = configureStore(preloadedState);
-  store.dispatch = addLoggingToDispatch(store);
+  let store = configureStore(preloadedState);
+  // store = applyMiddlewares(store, addLoggingToDispatch)
   const root = document.getElementById('content');
   ReactDOM.render(<Root store={store} />, root);
 });
 
-const addLoggingToDispatch = (store) => {
-  const storeDispatch = store.dispatch;
-  return (action) => {
-    console.log('Before action:', store.getState());
-    console.log('Action called:', action);
-    storeDispatch(action);
-    console.log('After action:', store.getState());
-  };
-};
+// const addLoggingToDispatch = (store) => {
+//   const storeDispatch = store.dispatch;
+//   return (action) => {
+//     console.log('Before action:', store.getState());
+//     console.log('Action called:', action);
+//     storeDispatch(action);
+//     console.log('After action:', store.getState());
+//   };
+// };
+
+// const addLoggingToDispatch = store => next => action => {
+//   console.log('Before action:', store.getState());
+//   console.log('Action called:', action);
+//   next(action);
+//   console.log('After action:', store.getState());
+// };
+
+
+// const applyMiddlewares = (store, ...middlewares) => {
+//   let dispatch = store.dispatch;
+//   middlewares.forEach((middleware) => dispatch = middleware(store)(dispatch));
+//   return Object.assign({}, store, { dispatch });
+// };
